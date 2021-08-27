@@ -1,0 +1,22 @@
+version: "3"
+services:
+  grpc-server:
+    container_name: grpc-server
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    environment:
+      GRPC_TRACE: all
+      GRPC_VERBOSITY: DEBUG
+    ports:
+      - "50051:50051"
+  grpc-client:
+    container_name: grpc-client
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    environment:
+      GRPC_TRACE: all
+      GRPC_VERBOSITY: DEBUG
+    ports:
+      - "3000:3000"
