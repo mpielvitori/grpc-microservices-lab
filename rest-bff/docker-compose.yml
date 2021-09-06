@@ -1,0 +1,25 @@
+version: '3.7'
+volumes:
+  data:
+    external:
+      name: bff-lab-database-store
+services:
+  postgres:
+    image: postgres
+    restart: unless-stopped
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_PASSWORD: pass
+      POSTGRES_USER: user
+      POSTGRES_DB: bff-rest
+    volumes:
+      - data:/var/lib/postgresql/data
+  users-api:
+    container_name: users-api
+    build:
+      context: ./users-api
+    ports:
+      - "3000:3000"
+    depends_on:
+      - postgres
