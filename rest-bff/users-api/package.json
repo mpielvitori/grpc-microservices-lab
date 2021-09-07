@@ -4,7 +4,7 @@
   "description": "BFF REST microservice lab",
   "scripts": {
     "lint": "eslint ./",
-    "start": "node ./src/index.js start"
+    "start": "node ./src/app.js"
   },
   "keywords": [
     "nodejs",

@@ -1,5 +1,3 @@
-/* eslint-disable import/named */
-/* eslint-disable import/extensions */
 const express = require('express');
 
 const { getUsers } = require('../controllers/users.js');
