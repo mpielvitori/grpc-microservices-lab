@@ -16,19 +16,21 @@ if (!database) {
       require(path.join(modelsPath, file))(database);
     });
 
+  const modelsPromises = [];
   Object.keys(database.models).forEach((modelName) => {
-    database.models[modelName].sync().then(() => {
+    modelsPromises.push(database.models[modelName].sync().then(() => {
       console.info(`${modelName} synced`);
       if (database.models[modelName].associate) {
         database.models[modelName].associate(database.models);
       }
-    });
+    }));
   });
-
-  sequelizeFixtures.loadFile(
-    path.resolve(path.join(__dirname, '/fixtures/*.json')),
-    database.models,
-  );
+  Promise.all(modelsPromises).then(() => {
+    sequelizeFixtures.loadFile(
+      path.resolve(path.join(__dirname, '/fixtures/*.json')),
+      database.models,
+    );
+  });
 }
 
 module.exports = database;

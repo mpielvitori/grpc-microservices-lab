@@ -13,4 +13,4 @@ ENV NODE_ENV $NODE_ENV
 
 COPY ./ /app/
 
-ENTRYPOINT ["node","./src/index.js"]
+ENTRYPOINT ["node","./src/app.js"]

@@ -1,5 +1,5 @@
 {
-  "name": "bff-rest",
+  "name": "rest-bff",
   "version": "1.0.0",
   "description": "BFF REST microservice lab",
   "scripts": {
@@ -25,6 +25,8 @@
     "pg": "^8.7.1",
     "pg-hstore": "^2.3.4",
     "sequelize": "^6.6.5",
-    "sequelize-fixtures": "^1.2.0"
+    "sequelize-fixtures": "^1.2.0",
+    "js-yaml": "^4.1.0",
+    "swagger-ui-express": "^4.1.6"
   }
 }

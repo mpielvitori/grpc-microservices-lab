@@ -4,11 +4,11 @@
     timezone: '+03:00',
     username: user,
     password: pass,
-    database: bff-rest,
+    database: rest-bff,
     host: postgres,
     port: 5432,
     define: {
-      paranoid: true,
+      paranoid: false,
     },
     forceSync: true
   }

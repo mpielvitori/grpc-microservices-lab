@@ -1,5 +1,5 @@
 {
-  "name": "users-api",
+  "name": "bff-api",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
