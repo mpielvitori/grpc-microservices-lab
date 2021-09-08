@@ -1,5 +1,4 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 const swaggerUi = require('swagger-ui-express');
 const yaml = require('js-yaml');
 const fs = require('fs');
@@ -9,9 +8,8 @@ const users = require('./routes/users.js');
 
 const app = express();
 
-app.use(bodyParser.json());
-app.use(bodyParser.text());
-app.use(bodyParser.urlencoded({
+app.use(express.json());
+app.use(express.urlencoded({
   extended: true,
 }));
 app.use('/bff/users', users);

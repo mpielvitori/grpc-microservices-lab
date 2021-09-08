@@ -1,0 +1,26 @@
+[
+  {
+    "model": "roles",
+    "data": {
+        "id": 1,
+        "userId": 1,
+        "role": "admin"
+    }
+  },
+  {
+    "model": "roles",
+    "data": {
+        "id": 2,
+        "userId": 1,
+        "role": "manager"
+    }
+  },
+  {
+    "model": "roles",
+    "data": {
+        "id": 3,
+        "userId": 2,
+        "role": "user"
+    }
+  }
+]

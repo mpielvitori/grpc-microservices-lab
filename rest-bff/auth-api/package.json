@@ -1,7 +1,7 @@
 {
-  "name": "rest-bff-users-api",
+  "name": "rest-bff-auth-api",
   "version": "1.0.0",
-  "description": "Users API",
+  "description": "Auth API",
   "scripts": {
     "lint": "eslint ./",
     "start": "node ./src/app.js"
