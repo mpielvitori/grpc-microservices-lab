@@ -1,1 +1,1 @@
-# grpc-microservices-lab
+# gRPC microservices lab

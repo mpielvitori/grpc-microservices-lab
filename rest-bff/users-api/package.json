@@ -1,7 +1,7 @@
 {
-  "name": "rest-bff",
+  "name": "rest-bff-users-api",
   "version": "1.0.0",
-  "description": "BFF REST microservice lab",
+  "description": "Users API",
   "scripts": {
     "lint": "eslint ./",
     "start": "node ./src/app.js"

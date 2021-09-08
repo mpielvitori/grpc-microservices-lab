@@ -15,11 +15,33 @@ services:
       POSTGRES_DB: rest-bff
     # volumes:
     #   - data:/var/lib/postgresql/data
+    networks:
+      - rest-bff-net
+  nginx:
+    restart: always
+    build:
+      context: ./nginx
+    container_name: nginx
+    ports:
+        - 80:80
+    networks:
+      - rest-bff-net
   users-api:
     container_name: users-api
     build:
       context: ./users-api
-    ports:
-      - "3000:3000"
     depends_on:
       - postgres
+    networks:
+      - rest-bff-net
+  bff-api:
+    container_name: bff-api
+    build:
+      context: ./bff-api
+    depends_on:
+      - users-api
+    networks:
+      - rest-bff-net
+networks:
+  rest-bff-net:
+    external: true

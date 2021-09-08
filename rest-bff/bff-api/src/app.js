@@ -14,7 +14,7 @@ app.use(bodyParser.text());
 app.use(bodyParser.urlencoded({
   extended: true,
 }));
-app.use('/api/users', users);
+app.use('/bff/users', users);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 const port = 3000;
