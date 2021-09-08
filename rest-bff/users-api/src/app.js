@@ -18,7 +18,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 const port = 3000;
 
 app.listen(port, () => {
-  console.info(`Server is up and running on port numner ${port}`);
+  console.info(`Users API Server is up and running on port numner ${port}`);
 });
 
 module.exports = app;

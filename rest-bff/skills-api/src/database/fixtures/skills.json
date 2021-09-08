@@ -1,0 +1,29 @@
+[
+  {
+    "model": "skills",
+    "data": {
+        "id": 1,
+        "userId": 1,
+        "charge": "architect",
+        "seniority": "senior"
+    }
+  },
+  {
+    "model": "skills",
+    "data": {
+        "id": 2,
+        "userId": 2,
+        "charge": "programmer",
+        "seniority": "senior"
+    }
+  },
+  {
+    "model": "skills",
+    "data": {
+        "id": 3,
+        "userId": 2,
+        "charge": "community_lead",
+        "seniority": "senior"
+    }
+  }
+]

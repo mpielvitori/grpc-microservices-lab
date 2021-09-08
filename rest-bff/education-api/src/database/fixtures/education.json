@@ -1,0 +1,38 @@
+[
+  {
+    "model": "education",
+    "data": {
+        "id": 1,
+        "userId": 1,
+        "title": "IT",
+        "level": "degree"
+    }
+  },
+  {
+    "model": "education",
+    "data": {
+        "id": 2,
+        "userId": 1,
+        "title": "English",
+        "level": "intermediate"
+    }
+  },
+  {
+    "model": "education",
+    "data": {
+        "id": 3,
+        "userId": 2,
+        "title": "IT",
+        "level": "degree"
+    }
+  },
+  {
+    "model": "education",
+    "data": {
+        "id": 4,
+        "userId": 2,
+        "title": "Italian",
+        "level": "intermediate"
+    }
+  }
+]

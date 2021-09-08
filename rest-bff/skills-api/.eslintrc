@@ -1,0 +1,12 @@
+{
+  "env": {
+      "node": true
+  },
+  "extends": ["eslint:recommended", "airbnb-base"],
+  "rules": {
+    "import/extensions": [
+      "error", "always", {"ignorePackages": true}
+    ],
+    "no-constant-condition": "error"
+  }
+}

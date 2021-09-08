@@ -34,6 +34,18 @@ services:
       context: ./auth-api
     depends_on:
       - postgres
+  education-api:
+    container_name: education-api
+    build:
+      context: ./education-api
+    depends_on:
+      - postgres
+  skills-api:
+    container_name: skills-api
+    build:
+      context: ./skills-api
+    depends_on:
+      - postgres
   bff-api:
     container_name: bff-api
     build:
@@ -41,3 +53,5 @@ services:
     depends_on:
       - users-api
       - auth-api
+      - skills-api
+      - education-api
