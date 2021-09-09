@@ -4,12 +4,12 @@ info:
   version: v1
 servers:
   - description: 'Local'
-    url: 'http://localhost:3000'
+    url: 'http://localhost'
 tags:
   - description: Users
     name: users
 paths:
-  /api/users:
+  /bff/users:
     get:
       description: This request retrieves all users matching the search string.
       operationId: getUsers
@@ -73,6 +73,28 @@ components:
           type: string
           format: email
           example: john.doe@mail.org
+        roles:
+          type: array
+          items:
+            type: string
+        skills:
+          type: array
+          items:
+            type: object
+            properties:
+              tech:
+                type: string
+              seniority:
+                type: string
+        education:
+          type: array
+          items:
+            type: object
+            properties:
+              title:
+                type: string
+              level:
+                type: string
         createdAt:
           type: string
           format: date

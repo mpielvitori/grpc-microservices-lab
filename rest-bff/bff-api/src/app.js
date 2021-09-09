@@ -12,8 +12,8 @@ app.use(express.json());
 app.use(express.urlencoded({
   extended: true,
 }));
+app.use('/bff/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use('/bff/users', users);
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 const port = 3000;
 

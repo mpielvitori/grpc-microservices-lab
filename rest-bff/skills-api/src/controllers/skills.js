@@ -4,7 +4,9 @@ module.exports = {
   getUserSkills: async (req, res) => {
     console.info('Get user skills');
     const skills = await database.models.skills.findAll({
-      userId: req.params.userId,
+      where: {
+        userId: req.params.userId,
+      },
       raw: true,
     });
     res.send(skills);

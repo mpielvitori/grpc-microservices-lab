@@ -12,7 +12,7 @@ module.exports = (sequelize) => {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    charge: {
+    tech: {
       type: DataTypes.STRING(20),
       allowNull: false,
     },

@@ -4,7 +4,9 @@ module.exports = {
   getUserRoles: async (req, res) => {
     console.info('Get user roles');
     const roles = await database.models.roles.findAll({
-      userId: req.params.userId,
+      where: {
+        userId: req.params.userId,
+      },
       raw: true,
     });
     res.send(roles);

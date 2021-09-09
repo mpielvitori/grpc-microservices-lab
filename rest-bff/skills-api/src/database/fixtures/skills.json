@@ -4,7 +4,7 @@
     "data": {
         "id": 1,
         "userId": 1,
-        "charge": "architect",
+        "tech": "java",
         "seniority": "senior"
     }
   },
@@ -13,7 +13,7 @@
     "data": {
         "id": 2,
         "userId": 2,
-        "charge": "programmer",
+        "tech": "nodejs",
         "seniority": "senior"
     }
   },
@@ -22,8 +22,8 @@
     "data": {
         "id": 3,
         "userId": 2,
-        "charge": "community_lead",
-        "seniority": "senior"
+        "tech": "react",
+        "seniority": "semi-senior"
     }
   }
 ]

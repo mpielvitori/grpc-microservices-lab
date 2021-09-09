@@ -12,8 +12,8 @@ app.use(express.json());
 app.use(express.urlencoded({
   extended: true,
 }));
+app.use('/api/education/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use('/api/education', education);
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 const port = 3000;
 

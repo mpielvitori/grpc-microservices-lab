@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 const axios = require('axios');
 const config = require('config');
 
@@ -21,7 +22,7 @@ module.exports = {
           httpClient.get(`${config.proxyHost}/api/auth/roles/${user.id}`),
         );
       });
-      const [userRolesResponse] = await Promise.all(rolesPromises);
+      const userRolesResponse = await Promise.all(rolesPromises);
       // Skills calls
       const skillsPromises = [];
       result.data.objects.forEach((user) => {
@@ -29,7 +30,7 @@ module.exports = {
           httpClient.get(`${config.proxyHost}/api/skills/${user.id}`),
         );
       });
-      const [userSkillsResponse] = await Promise.all(skillsPromises);
+      const userSkillsResponse = await Promise.all(skillsPromises);
       // Education calls
       const educationPromises = [];
       result.data.objects.forEach((user) => {
@@ -37,20 +38,19 @@ module.exports = {
           httpClient.get(`${config.proxyHost}/api/education/${user.id}`),
         );
       });
-      const [userEducationResponse] = await Promise.all(educationPromises);
-
+      const userEducationResponse = await Promise.all(educationPromises);
       // Data sanitization
       const usersData = [];
       result.data.objects.forEach((user) => {
-        const userRoles = userRolesResponse.data.filter(
+        const userRoles = userRolesResponse.flatMap((response) => [response.data]).flat().filter(
           (userRole) => userRole.userId === user.id,
         ).map((userRole) => (userRole.role));
-        const userSkills = userSkillsResponse.data.filter(
+        const userSkills = userSkillsResponse.flatMap((response) => [response.data]).flat().filter(
           (userSkill) => userSkill.userId === user.id,
         ).map((userSkill) => ({
-          charge: userSkill.charge, seniority: userSkill.seniority,
+          tech: userSkill.tech, seniority: userSkill.seniority,
         }));
-        const parsedUserEducation = userEducationResponse.data.filter(
+        const parsedUserEducation = userEducationResponse.flatMap((response) => [response.data]).flat().filter(
           (userEducation) => userEducation.userId === user.id,
         ).map((userEducation) => ({
           title: userEducation.title, level: userEducation.level,

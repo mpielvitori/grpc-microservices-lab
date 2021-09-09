@@ -4,14 +4,14 @@ info:
   version: v1
 servers:
   - description: 'Local'
-    url: 'http://localhost:3000'
+    url: 'http://localhost'
 tags:
   - description: Users
     name: users
 paths:
   /api/users:
     get:
-      description: This request retrieves all users matching the search string.
+      description: This request retrieves all users.
       operationId: getUsers
       parameters:
         - in: query
@@ -62,7 +62,7 @@ components:
       type: object
       properties:
         id:
-          type: string
+          type: integer
         firstname:
           type: string
           example: John
