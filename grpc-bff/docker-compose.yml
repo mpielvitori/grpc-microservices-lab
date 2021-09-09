@@ -38,18 +38,24 @@ services:
     container_name: grpc-auth-api
     build:
       context: ./auth-api
+    volumes:
+      - protos/:/app/src/proto
     depends_on:
       - postgres
   grpc-education-api:
     container_name: grpc-education-api
     build:
       context: ./education-api
+    volumes:
+      - protos/:/app/src/proto
     depends_on:
       - postgres
   grpc-skills-api:
     container_name: grpc-skills-api
     build:
       context: ./skills-api
+    volumes:
+      - protos/:/app/src/proto
     depends_on:
       - postgres
   grpc-bff-api:

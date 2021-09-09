@@ -8,7 +8,7 @@
   },
   "keywords": [
     "nodejs",
-    "express",
+    "grpc",
     "postgresql"
   ],
   "author": "Martín Pielvitori",
@@ -20,12 +20,11 @@
   },
   "dependencies": {
     "config": "3.3.1",
-    "express": "4.17.1",
-    "js-yaml": "^4.1.0",
     "pg": "^8.7.1",
     "pg-hstore": "^2.3.4",
     "sequelize": "^6.6.5",
     "sequelize-fixtures": "^1.2.0",
-    "swagger-ui-express": "^4.1.6"
+    "@grpc/proto-loader": "^0.5.5",
+    "@grpc/grpc-js": "^1.2.2"
   }
 }

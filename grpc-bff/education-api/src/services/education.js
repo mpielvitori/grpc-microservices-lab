@@ -1,14 +1,14 @@
 const database = require('../database/index.js');
 
 module.exports = {
-  getUserEducation: async (req, res) => {
-    console.info('Get user education');
+  getUserEducation: async (call, callback) => {
+    console.info('Get user education by gRPC');
     const education = await database.models.education.findAll({
       where: {
-        userId: req.params.userId,
+        userId: call.request.userId,
       },
       raw: true,
     });
-    res.send(education);
+    callback(null, { userEducation: education });
   },
 };

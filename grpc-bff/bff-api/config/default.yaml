@@ -1,5 +1,8 @@
 {
   proxyHost: http://nginx,
-  grpcPPort: '50051',
-  usersAPIHost: 'grpc-users-api'
+  grpcPort: '50051',
+  usersAPIHost: 'grpc-users-api',
+  skillsAPIHost: 'grpc-skills-api',
+  educationAPIHost: 'grpc-education-api',
+  authAPIHost: 'grpc-auth-api'
 }

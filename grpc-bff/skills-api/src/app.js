@@ -1,24 +1,33 @@
-const express = require('express');
-const swaggerUi = require('swagger-ui-express');
-const yaml = require('js-yaml');
-const fs = require('fs');
+const PROTO_PATH = `${__dirname}/proto/skills.proto`;
+const grpc = require('@grpc/grpc-js');
+const protoLoader = require('@grpc/proto-loader');
+const config = require('config');
+const { getUserSkills } = require('./services/skills.js');
 
-const swaggerDocument = yaml.load(fs.readFileSync(`${__dirname}/swagger.yaml`, 'utf8'));
-const skills = require('./routes/skills.js');
-
-const app = express();
-
-app.use(express.json());
-app.use(express.urlencoded({
-  extended: true,
-}));
-app.use('/api/skills/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-app.use('/api/skills', skills);
-
-const port = 3000;
-
-app.listen(port, () => {
-  console.info(`Skills API Server is up and running on port numner ${port}`);
-});
-
-module.exports = app;
+const packageDefinition = protoLoader.loadSync(
+  PROTO_PATH,
+  {
+    keepCase: true,
+    longs: String,
+    enums: String,
+    defaults: true,
+    oneofs: true,
+  },
+);
+const skillsProto = grpc.loadPackageDefinition(packageDefinition).skills;
+function main() {
+  const server = new grpc.Server();
+  server.addService(skillsProto.SkillsService.service, { getUserSkills });
+  server.bindAsync(
+    `${config.grpc.host}:${config.grpc.port}`,
+    grpc.ServerCredentials.createInsecure(),
+    (err, port) => {
+      if (err) {
+        console.error('Error starting gRPC skills server', err);
+      }
+      server.start();
+      console.log(`Server running at ${port}`);
+    },
+  );
+}
+main();

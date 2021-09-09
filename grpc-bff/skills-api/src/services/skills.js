@@ -1,14 +1,14 @@
 const database = require('../database/index.js');
 
 module.exports = {
-  getUserSkills: async (req, res) => {
-    console.info('Get user skills');
+  getUserSkills: async (call, callback) => {
+    console.info('Get user skills by gRPC');
     const skills = await database.models.skills.findAll({
       where: {
-        userId: req.params.userId,
+        userId: call.request.userId,
       },
       raw: true,
     });
-    res.send(skills);
+    callback(null, { userSkills: skills });
   },
 };

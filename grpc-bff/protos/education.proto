@@ -1,0 +1,19 @@
+syntax = "proto3";
+package education;
+service EducationService {
+  rpc GetUserEducation (GetUserEducationRequest) returns (GetUserEducationReply) {}
+}
+message GetUserEducationRequest {
+  int32 userId = 1;
+}
+message GetUserEducationReply {
+  repeated UserEducation userEducation = 1;
+}
+message UserEducation {
+  int32 id = 1;
+  int32 userId = 2;
+  string level = 3;
+  string title = 4;
+  string createdAt = 5;
+  string updatedAt = 6;
+}

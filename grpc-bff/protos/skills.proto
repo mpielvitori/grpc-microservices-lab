@@ -1,0 +1,19 @@
+syntax = "proto3";
+package skills;
+service SkillsService {
+  rpc GetUserSkills (GetUserSkillsRequest) returns (GetUserSkillsReply) {}
+}
+message GetUserSkillsRequest {
+  int32 userId = 1;
+}
+message GetUserSkillsReply {
+  repeated UserSkills userSkills = 1;
+}
+message UserSkills {
+  int32 id = 1;
+  int32 userId = 2;
+  string tech = 3;
+  string seniority = 4;
+  string createdAt = 5;
+  string updatedAt = 6;
+}

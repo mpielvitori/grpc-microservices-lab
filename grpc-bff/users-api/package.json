@@ -8,7 +8,7 @@
   },
   "keywords": [
     "nodejs",
-    "express",
+    "grpc",
     "postgresql"
   ],
   "author": "Martín Pielvitori",

@@ -1,24 +1,33 @@
-const express = require('express');
-const swaggerUi = require('swagger-ui-express');
-const yaml = require('js-yaml');
-const fs = require('fs');
+const PROTO_PATH = `${__dirname}/proto/auth.proto`;
+const grpc = require('@grpc/grpc-js');
+const protoLoader = require('@grpc/proto-loader');
+const config = require('config');
+const { getUserRoles } = require('./services/roles.js');
 
-const swaggerDocument = yaml.load(fs.readFileSync(`${__dirname}/swagger.yaml`, 'utf8'));
-const auth = require('./routes/auth.js');
-
-const app = express();
-
-app.use(express.json());
-app.use(express.urlencoded({
-  extended: true,
-}));
-app.use('/api/auth/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-app.use('/api/auth', auth);
-
-const port = 3000;
-
-app.listen(port, () => {
-  console.info(`Auth API Server is up and running on port numner ${port}`);
-});
-
-module.exports = app;
+const packageDefinition = protoLoader.loadSync(
+  PROTO_PATH,
+  {
+    keepCase: true,
+    longs: String,
+    enums: String,
+    defaults: true,
+    oneofs: true,
+  },
+);
+const authProto = grpc.loadPackageDefinition(packageDefinition).auth;
+function main() {
+  const server = new grpc.Server();
+  server.addService(authProto.AuthService.service, { getUserRoles });
+  server.bindAsync(
+    `${config.grpc.host}:${config.grpc.port}`,
+    grpc.ServerCredentials.createInsecure(),
+    (err, port) => {
+      if (err) {
+        console.error('Error starting gRPC auth server', err);
+      }
+      server.start();
+      console.log(`Server running at ${port}`);
+    },
+  );
+}
+main();

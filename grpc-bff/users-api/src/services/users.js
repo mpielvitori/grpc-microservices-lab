@@ -1,3 +1,4 @@
+const config = require('config');
 const database = require('../database/index.js');
 
 module.exports = {
@@ -5,7 +6,7 @@ module.exports = {
     console.info('Get users by gRPC');
     const users = await database.models.users.findAndCountAll({
       offset: call.request.offset,
-      limit: call.request.limit,
+      limit: call.request.limit === 0 ? config.defaultLimit : call.request.limit,
       raw: true,
     });
     callback(null, {
