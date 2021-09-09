@@ -26,7 +26,7 @@ function main() {
         console.error('Error starting gRPC education server', err);
       }
       server.start();
-      console.log(`Server running at ${port}`);
+      console.info(`Server running at ${port}`);
     },
   );
 }

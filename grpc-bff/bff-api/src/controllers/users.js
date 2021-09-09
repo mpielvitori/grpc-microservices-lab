@@ -16,7 +16,6 @@ module.exports = {
           else (resolve(response));
         });
       });
-      console.log('USERS RESP', result);
       // Roles calls
       const rolesPromises = [];
       result.objects.forEach((user) => {
@@ -30,7 +29,6 @@ module.exports = {
         );
       });
       const userRolesResponse = await Promise.all(rolesPromises);
-      console.log('ROLES RESP', userRolesResponse);
       // Skills calls
       const skillsPromises = [];
       result.objects.forEach((user) => {
@@ -44,7 +42,6 @@ module.exports = {
         );
       });
       const userSkillsResponse = await Promise.all(skillsPromises);
-      console.log('SKILLS RESP', userSkillsResponse);
       // Education calls
       const educationPromises = [];
       result.objects.forEach((user) => {
@@ -58,7 +55,6 @@ module.exports = {
         );
       });
       const userEducationResponse = await Promise.all(educationPromises);
-      console.log('EDUCATION RESP', userEducationResponse);
       // Data sanitization
       const usersData = [];
       result.objects.forEach((user) => {
