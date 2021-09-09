@@ -1,0 +1,19 @@
+{
+  sequelize: {
+    dialect: 'postgres',
+    timezone: '+03:00',
+    username: user,
+    password: pass,
+    database: rest-bff,
+    host: postgres,
+    port: 5432,
+    define: {
+      paranoid: false,
+    },
+    forceSync: true
+  },
+  grpc: {
+    host: '0.0.0.0',
+    port: '50051'
+  }
+}

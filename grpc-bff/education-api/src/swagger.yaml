@@ -1,35 +1,31 @@
 openapi: 3.0.1
 info:
-  title: Users Service REST API
+  title: Education Service REST API
   version: v1
 servers:
   - description: 'Local'
     url: 'http://localhost'
 tags:
-  - description: Users
-    name: users
+  - description: Education
+    name: education
 paths:
-  /api/users:
+  /api/education/{userId}:
     get:
-      description: This request retrieves all users.
-      operationId: getUsers
+      description: This request retrieves all user education matching the userId.
+      operationId: getUserEducation
       parameters:
-        - in: query
-          name: offset
+        - in: path
+          required: true
+          name: userId
           schema:
             type: integer
             default: 0
-        - in: query
-          name: limit
-          schema:
-            type: integer
-            default: 100
       responses:
         '200':
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Page'
+                $ref: '#/components/schemas/UserEducation'
           description: OK
         '401':
           description: Unauthorized
@@ -40,39 +36,22 @@ paths:
                 $ref: '#/components/schemas/ErrorInfo'
           description: Forbidden
       tags:
-        - users
+        - education
 components:
   schemas:
-    Page:
-      type: object
-      properties:
-        numItems:
-          type: integer
-          format: int32
-          example: 50
-        objects:
-          type: array
-          items:
-            $ref: '#/components/schemas/User'
-        totalNumItems:
-          type: integer
-          format: int64
-          example: 1234
-    User:
+    UserEducation:
       type: object
       properties:
         id:
           type: integer
-        firstname:
+        userId:
+          type: integer
+        title:
           type: string
-          example: John
-        lastname:
+          example: English
+        level:
           type: string
-          example: Doe
-        email:
-          type: string
-          format: email
-          example: john.doe@mail.org
+          example: intermediate
         createdAt:
           type: string
           format: date

@@ -1,0 +1,29 @@
+[
+  {
+    "model": "skills",
+    "data": {
+        "id": 1,
+        "userId": 1,
+        "tech": "java",
+        "seniority": "senior"
+    }
+  },
+  {
+    "model": "skills",
+    "data": {
+        "id": 2,
+        "userId": 2,
+        "tech": "nodejs",
+        "seniority": "senior"
+    }
+  },
+  {
+    "model": "skills",
+    "data": {
+        "id": 3,
+        "userId": 2,
+        "tech": "react",
+        "seniority": "semi-senior"
+    }
+  }
+]

@@ -1,0 +1,28 @@
+{
+  "name": "rest-bff-api",
+  "version": "1.0.0",
+  "description": "BFF REST API",
+  "scripts": {
+    "lint": "eslint ./",
+    "start": "node ./src/app.js"
+  },
+  "keywords": [
+    "nodejs",
+    "express"
+  ],
+  "author": "Martín Pielvitori",
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "7.7.0",
+    "eslint-config-airbnb": "18.2.0",
+    "eslint-plugin-import": "2.24.0"
+  },
+  "dependencies": {
+    "axios": "^0.21.4",
+    "config": "3.3.1",
+    "express": "4.17.1",
+    "swagger-ui-express": "^4.1.6",
+    "@grpc/proto-loader": "^0.5.5",
+    "@grpc/grpc-js": "^1.2.2"
+  }
+}

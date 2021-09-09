@@ -1,0 +1,65 @@
+version: '3.7'
+
+volumes:
+  protos:
+
+services:
+  proto:
+    build:
+      context: ./protos
+    container_name: grpc-proto
+    volumes:
+      - protos:/proto
+  postgres:
+    image: postgres
+    restart: unless-stopped
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_PASSWORD: pass
+      POSTGRES_USER: user
+      POSTGRES_DB: rest-bff
+  grpc-nginx:
+    restart: always
+    build:
+      context: ./nginx
+    container_name: grpc-nginx
+    ports:
+        - 80:80
+  grpc-users-api:
+    container_name: grpc-users-api
+    build:
+      context: ./users-api
+    volumes:
+      - protos/:/app/src/proto
+    depends_on:
+      - postgres
+  grpc-auth-api:
+    container_name: grpc-auth-api
+    build:
+      context: ./auth-api
+    depends_on:
+      - postgres
+  grpc-education-api:
+    container_name: grpc-education-api
+    build:
+      context: ./education-api
+    depends_on:
+      - postgres
+  grpc-skills-api:
+    container_name: grpc-skills-api
+    build:
+      context: ./skills-api
+    depends_on:
+      - postgres
+  grpc-bff-api:
+    container_name: grpc-bff-api
+    build:
+      context: ./bff-api
+    volumes:
+      - protos/:/app/src/proto
+    depends_on:
+      - grpc-users-api
+      - grpc-auth-api
+      - grpc-skills-api
+      - grpc-education-api

@@ -1,0 +1,20 @@
+[
+  {
+    "model": "users",
+    "data": {
+        "id": 1,
+        "firstName": "Martín",
+        "lastName": "Pielvitori",
+        "email": "martin.pielvitori@softvision.com"
+    }
+  },
+  {
+    "model": "users",
+    "data": {
+        "id": 2,
+        "firstName": "Federico",
+        "lastName": "Motta",
+        "email": "federico.motta@softvision.com"
+    }
+  }
+]

@@ -1,0 +1,23 @@
+syntax = "proto3";
+package users;
+service UsersService {
+  rpc GetUsers (GetUsersRequest) returns (GetUsersReply) {}
+}
+message GetUsersRequest {
+  int32 offset = 1;
+  int32 limit = 2;
+}
+message GetUsersReply {
+  int32 numItems = 1;
+  repeated User objects = 2;
+  int32 totalNumItems = 3;
+}
+
+message User {
+  int32 id = 1;
+  string firstName = 2;
+  string lastName = 3;
+  string email = 4;
+  string createdAt = 5;
+  string updatedAt = 6;
+}

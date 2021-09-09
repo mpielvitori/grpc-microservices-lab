@@ -1,0 +1,31 @@
+{
+  "name": "rest-bff-auth-api",
+  "version": "1.0.0",
+  "description": "Auth API",
+  "scripts": {
+    "lint": "eslint ./",
+    "start": "node ./src/app.js"
+  },
+  "keywords": [
+    "nodejs",
+    "express",
+    "postgresql"
+  ],
+  "author": "Martín Pielvitori",
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "7.7.0",
+    "eslint-config-airbnb": "18.2.0",
+    "eslint-plugin-import": "2.24.0"
+  },
+  "dependencies": {
+    "config": "3.3.1",
+    "express": "4.17.1",
+    "js-yaml": "^4.1.0",
+    "pg": "^8.7.1",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.6.5",
+    "sequelize-fixtures": "^1.2.0",
+    "swagger-ui-express": "^4.1.6"
+  }
+}

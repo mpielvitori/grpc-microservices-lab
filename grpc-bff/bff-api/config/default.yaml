@@ -1,0 +1,5 @@
+{
+  proxyHost: http://nginx,
+  grpcPPort: '50051',
+  usersAPIHost: 'grpc-users-api'
+}
