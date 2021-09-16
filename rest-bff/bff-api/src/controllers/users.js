@@ -3,21 +3,33 @@ const axios = require('axios');
 const config = require('config');
 
 const httpClient = axios.create();
-httpClient.defaults.timeout = 2000;
+httpClient.defaults.timeout = 10000;
+const PAGE_LIMIT = 20;
 
 module.exports = {
-  getUsers: async (req, res) => {
+  getAllUsers: async (req, res) => {
     console.info('BFF Get users');
     try {
-      const result = await httpClient.get(`${config.proxyHost}/api/users`, {
-        params: {
-          offset: req.query.offset,
-          limit: req.query.limit,
-        },
-      });
+      const result = await httpClient.get(`${config.proxyHost}/api/users`);
+      const usersResult = result.data.objects;
+      if (PAGE_LIMIT < result.data.totalNumItems) {
+        const usersPromises = [];
+        for (let offset = PAGE_LIMIT; offset < result.data.totalNumItems;) {
+          usersPromises.push(httpClient.get(`${config.proxyHost}/api/users`, {
+            params: {
+              offset,
+              limit: PAGE_LIMIT,
+            },
+          }));
+          offset += PAGE_LIMIT;
+        }
+
+        const usersResponse = await Promise.all(usersPromises);
+        usersResult.push(...usersResponse.flatMap((response) => [response.data.objects]).flat());
+      }
       // Roles calls
       const rolesPromises = [];
-      result.data.objects.forEach((user) => {
+      usersResult.forEach((user) => {
         rolesPromises.push(
           httpClient.get(`${config.proxyHost}/api/auth/roles/${user.id}`),
         );
@@ -25,7 +37,7 @@ module.exports = {
       const userRolesResponse = await Promise.all(rolesPromises);
       // Skills calls
       const skillsPromises = [];
-      result.data.objects.forEach((user) => {
+      usersResult.forEach((user) => {
         skillsPromises.push(
           httpClient.get(`${config.proxyHost}/api/skills/${user.id}`),
         );
@@ -33,7 +45,7 @@ module.exports = {
       const userSkillsResponse = await Promise.all(skillsPromises);
       // Education calls
       const educationPromises = [];
-      result.data.objects.forEach((user) => {
+      usersResult.forEach((user) => {
         educationPromises.push(
           httpClient.get(`${config.proxyHost}/api/education/${user.id}`),
         );
@@ -41,7 +53,7 @@ module.exports = {
       const userEducationResponse = await Promise.all(educationPromises);
       // Data sanitization
       const usersData = [];
-      result.data.objects.forEach((user) => {
+      usersResult.forEach((user) => {
         const userRoles = userRolesResponse.flatMap((response) => [response.data]).flat().filter(
           (userRole) => userRole.userId === user.id,
         ).map((userRole) => (userRole.role));
@@ -62,11 +74,7 @@ module.exports = {
           education: parsedUserEducation,
         });
       });
-      res.send({
-        numItems: result.data.numItems,
-        objects: usersData,
-        totalNumItems: result.data.totalNumItems,
-      });
+      res.send(usersData);
     } catch (error) {
       console.error('Error getting users info', error);
       res.status(

@@ -3,7 +3,6 @@ const database = require('../database/index.js');
 
 module.exports = {
   getUsers: async (call, callback) => {
-    console.info('Get users by gRPC');
     const users = await database.models.users.findAndCountAll({
       offset: call.request.offset,
       limit: call.request.limit === 0 ? config.defaultLimit : call.request.limit,
@@ -14,5 +13,19 @@ module.exports = {
       objects: users.rows,
       totalNumItems: users.count,
     });
+  },
+};
+
+module.exports = {
+  getAllUsers: async (call) => {
+    const users = await database.models.users.findAll({
+      raw: true,
+    });
+    users.forEach((user) => {
+      call.write({
+        items: [user],
+      });
+    });
+    call.end();
   },
 };

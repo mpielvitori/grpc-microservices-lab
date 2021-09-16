@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 const fs = require('fs');
 const path = require('path');
 const { Sequelize } = require('sequelize');
@@ -7,7 +8,10 @@ const sequelizeFixtures = require('sequelize-fixtures');
 let database;
 
 if (!database) {
-  database = new Sequelize(config.sequelize);
+  database = new Sequelize({
+    ...config.sequelize,
+    logging: config.sequelize.logging === 'true',
+  });
   const modelsPath = `${__dirname}/models`;
   fs.readdirSync(modelsPath)
     .filter((filePath) => filePath.match(/.*\.js$/))
@@ -18,7 +22,7 @@ if (!database) {
 
   const modelsPromises = [];
   Object.keys(database.models).forEach((modelName) => {
-    modelsPromises.push(database.models[modelName].sync().then(() => {
+    modelsPromises.push(database.models[modelName].sync({ force: config.forceSync === 'true' }).then(() => {
       console.info(`${modelName} synced`);
       if (database.models[modelName].associate) {
         database.models[modelName].associate(database.models);

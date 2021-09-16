@@ -10,6 +10,7 @@
     define: {
       paranoid: false,
     },
+    logging: false,
     forceSync: true
   }
 }

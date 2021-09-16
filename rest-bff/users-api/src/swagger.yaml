@@ -23,7 +23,7 @@ paths:
           name: limit
           schema:
             type: integer
-            default: 100
+            default: 20
       responses:
         '200':
           content:

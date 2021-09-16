@@ -7,18 +7,29 @@ const {
 } = require('../helpers/servicesClientBuilder.js');
 
 module.exports = {
-  getUsers: async (req, res) => {
+  getAllUsers: async (req, res) => {
     console.info('BFF Get users');
     try {
       const result = await new Promise((resolve, reject) => {
-        getgRPCUsersClient().getUsers({ offset: req.query.offset, limit: req.query.limit }, (err, response) => {
-          if (err) reject(err);
-          else (resolve(response));
+        let response = [];
+        const call = getgRPCUsersClient().getAllUsers();
+        call.on('data', (data) => {
+          if (data.items) {
+            response = response.concat(data.items);
+          } else {
+            response = response.concat(data);
+          }
+        });
+        call.on('end', () => {
+          resolve(response);
+        });
+        call.on('error', (e) => {
+          reject(e);
         });
       });
       // Roles calls
       const rolesPromises = [];
-      result.objects.forEach((user) => {
+      result.forEach((user) => {
         rolesPromises.push(
           new Promise((resolve, reject) => {
             getgRPCAuthClient().getUserRoles({ userId: user.id }, (err, response) => {
@@ -31,7 +42,7 @@ module.exports = {
       const userRolesResponse = await Promise.all(rolesPromises);
       // Skills calls
       const skillsPromises = [];
-      result.objects.forEach((user) => {
+      result.forEach((user) => {
         skillsPromises.push(
           new Promise((resolve, reject) => {
             getgRPCSkillsClient().getUserSkills({ userId: user.id }, (err, response) => {
@@ -44,7 +55,7 @@ module.exports = {
       const userSkillsResponse = await Promise.all(skillsPromises);
       // Education calls
       const educationPromises = [];
-      result.objects.forEach((user) => {
+      result.forEach((user) => {
         educationPromises.push(
           new Promise((resolve, reject) => {
             getgRPCEducationClient().getUserEducation({ userId: user.id }, (err, response) => {
@@ -57,7 +68,7 @@ module.exports = {
       const userEducationResponse = await Promise.all(educationPromises);
       // Data sanitization
       const usersData = [];
-      result.objects.forEach((user) => {
+      result.forEach((user) => {
         const userRoles = userRolesResponse.flatMap((response) => [response.userRoles]).flat().filter(
           (userRole) => userRole.userId === user.id,
         ).map((userRole) => (userRole.role));
@@ -79,11 +90,7 @@ module.exports = {
         });
       });
 
-      res.send({
-        numItems: result.numItems,
-        objects: usersData,
-        totalNumItems: result.totalNumItems,
-      });
+      res.send(usersData);
     } catch (error) {
       console.error('Error getting users info', error);
       res.status(

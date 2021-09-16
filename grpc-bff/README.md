@@ -1,4 +1,4 @@
-# REST APIs with BFF
+# gRPC APIs with BFF
 
 ## Start containers
 ```sh

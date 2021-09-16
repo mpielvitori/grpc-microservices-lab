@@ -1,7 +1,10 @@
 syntax = "proto3";
 package users;
+import "google/protobuf/empty.proto";
+
 service UsersService {
   rpc GetUsers (GetUsersRequest) returns (GetUsersReply) {}
+  rpc GetAllUsers(google.protobuf.Empty) returns (stream GetAllUsersReply) {}
 }
 message GetUsersRequest {
   int32 offset = 1;
@@ -12,7 +15,6 @@ message GetUsersReply {
   repeated User objects = 2;
   int32 totalNumItems = 3;
 }
-
 message User {
   int32 id = 1;
   string firstName = 2;
@@ -20,4 +22,7 @@ message User {
   string email = 4;
   string createdAt = 5;
   string updatedAt = 6;
+}
+message GetAllUsersReply {
+  repeated User items = 1;
 }

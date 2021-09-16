@@ -10,6 +10,9 @@
     define: {
       paranoid: false,
     },
+    logging: false,
     forceSync: true
-  }
+  },
+  defaultLimit: 20,
+  defaultOffset: 0
 }
