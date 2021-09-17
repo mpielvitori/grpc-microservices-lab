@@ -13,6 +13,7 @@ services:
   postgres:
     image: postgres
     restart: unless-stopped
+    container_name: grpc-postgres
     ports:
       - 5432:5432
     environment:

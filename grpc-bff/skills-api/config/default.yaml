@@ -5,7 +5,7 @@
     username: user,
     password: pass,
     database: rest-bff,
-    host: postgres,
+    host: grpc-postgres,
     port: 5432,
     define: {
       paranoid: false,
